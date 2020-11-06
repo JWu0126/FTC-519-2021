@@ -28,4 +28,8 @@ public abstract class BaseTeleOp extends BaseOpMode{
             return input * -input;
         }
     }
+
+    void driveMotors(double x, double y, double z) {
+
+    }
 }
