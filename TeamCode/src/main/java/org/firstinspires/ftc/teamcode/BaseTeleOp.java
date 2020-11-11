@@ -7,10 +7,18 @@ public abstract class BaseTeleOp extends BaseOpMode{
 
     protected Gamepad driver;
     protected Gamepad gunner;
+    protected boolean invertMotors = false;
+
+    // x is left and right, y is forwards and backwards, z is turning
+    protected float x;
+    protected float y;
+    protected float z;
 
     @Override
     public void init() {
         super.init();
+        driver = gamepad1;
+        gunner = gamepad2;
     }
 
     @Override
@@ -21,7 +29,9 @@ public abstract class BaseTeleOp extends BaseOpMode{
         wobbleGoalHand.setPosition(0.0);
     }
 
-    protected static double shapeInput(double input) {
+    // last years was different
+    // I don't understand the need to check for non-zero values
+    protected static float shapeInput(float input) {
         if (input > 0.0) {
             return input * input;
         } else {
@@ -29,7 +39,22 @@ public abstract class BaseTeleOp extends BaseOpMode{
         }
     }
 
-    void driveMotors(double x, double y, double z) {
-
+    protected void driveMotors(double x, double y, double z) {
+        y = -y;
+        backLeft.setPower(-x+y+z);
+        backRight.setPower(y+x-z);
+        frontLeft.setPower(y+x+z);
+        frontRight.setPower(y-x-z);
     }
+
+    protected float applyDeadZone(float joystickValue) {
+        float value = joystickValue;
+
+        if (value < 0.05 && value > -0.05) {
+            value = 0.0f;
+        }
+
+        return value;
+    }
+
 }
