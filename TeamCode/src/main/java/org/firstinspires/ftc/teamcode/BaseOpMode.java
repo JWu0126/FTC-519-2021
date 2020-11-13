@@ -8,19 +8,22 @@ import com.qualcomm.robotcore.hardware.Servo;
 public abstract class BaseOpMode extends OpMode{
 
     // declare motors and servos
-    DcMotor frontLeft;
-    DcMotor frontRight;
-    DcMotor backLeft;
-    DcMotor backRight;
+    protected DcMotor frontLeft;
+    protected DcMotor frontRight;
+    protected DcMotor backLeft;
+    protected DcMotor backRight;
 
-    DcMotor wobbleGoalArm;
-    Servo wobbleGoalHand;
+    protected DcMotor wobbleGoalArm;
+    protected Servo wobbleGoalHand;
 
-    DcMotor intake;
-    DcMotor shooter;
+    protected DcMotor intake;
+    protected DcMotor shooter;
 
     // Uncomment if used
 //    DcMotor feeder;
+
+    protected final static double wobbleHandOpen = 0.5;
+    protected final static double wobbleHandClosed = 0.5;
 
     @Override
     public void init() {
@@ -45,6 +48,7 @@ public abstract class BaseOpMode extends OpMode{
         wobbleGoalHand = hardwareMap.servo.get("wobble_goal_hand");
 
         wobbleGoalArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        wobbleGoalArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // find the ring manipulator motors in app
         intake = hardwareMap.dcMotor.get("intake");

@@ -12,7 +12,7 @@ public class StepCounter {
         this.step++;
     }
 
-    public void toStep(int location) {
+    public void setStep(int location) {
         this.step = location;
     }
 

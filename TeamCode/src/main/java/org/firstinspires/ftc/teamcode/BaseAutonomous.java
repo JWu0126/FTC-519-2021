@@ -10,6 +10,7 @@ public abstract class BaseAutonomous extends BaseOpMode{
     @Override
     public void init() {
         // call the parent class's init function
+        wobbleGoalHand.setPosition(wobbleHandClosed);
         super.init();
     }
 
