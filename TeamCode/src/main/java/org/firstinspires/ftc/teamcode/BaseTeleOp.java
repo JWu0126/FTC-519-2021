@@ -8,6 +8,10 @@ public abstract class BaseTeleOp extends BaseOpMode{
     protected Gamepad driver;
     protected Gamepad gunner;
     protected boolean invertMotors = false;
+    protected boolean slowMode = false;
+
+    // place holder for controls that we put in later
+    protected final boolean someControl = false;
 
     // x is left and right, y is forwards and backwards, z is turning
     protected float x;

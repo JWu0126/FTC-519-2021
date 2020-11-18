@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.util.ElapsedTime;
+
 public class StepCounter {
 
+    public ElapsedTime elapsedTime = new ElapsedTime();
     protected int step;
 
     public StepCounter() {
@@ -10,6 +13,7 @@ public class StepCounter {
 
     public void next() {
         this.step++;
+        elapsedTime.reset();
     }
 
     public void setStep(int location) {

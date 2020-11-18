@@ -5,53 +5,73 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.BaseAutonomous;
 import org.firstinspires.ftc.teamcode.StepCounter;
 
-@Autonomous(name = "LeftRedWobbleToFarGoal", group = "Not Main")
-public class LeftRedWobbleToFarGoal extends BaseAutonomous {
+@Autonomous(name = "LeftRedStartingLineWobbleToFarGoal", group = "Not Main")
+public class LeftRedStartingLineWobbleToFarGoal extends BaseAutonomous {
 
     int step;
+    ElapsedTime elapsedTime = stepCounter.elapsedTime;
     @Override
     public void init() {
-
         stepCounter = new StepCounter();
-        elapsedTime = new ElapsedTime();
         super.init();
     }
 
     @Override
     public void start() {
-        elapsedTime.reset();
-        elapsedTime.startTime();
+
         stepCounter.setStep(1);
         super.start();
     }
 
     @Override
     public void loop() {
+        elapsedTime = stepCounter.elapsedTime;
         step = stepCounter.getStep();
         switch (step) {
+            // Sit still for 25 seconds
             case 1:
                 if (elapsedTime.seconds() >= 25.0) {
                     stepCounter.next();
                 }
                 break;
+                // drive straight for 3 seconds
             case 2:
                 driveStraight(0.5f);
                 if (elapsedTime.seconds() > 3.0) {
                     stepCounter.next();
                 }
                 break;
+                // Maybe I should add a short break in between each movement...
             case 3:
+                stopMoving();
+                if (elapsedTime.seconds() > 0.1) {
+                    stepCounter.next();
+                }
+                break;
+            // strafe right for 2 seconds
+            case 4:
                 strafeRight();
                 if (elapsedTime.seconds() > 2.0) {
                     stepCounter.next();
                 }
                 break;
-            case 4:
+                // open the wobble goal hand
+            case 5:
                 wobbleGoalHand.setPosition(wobbleHandOpen);
                 if (elapsedTime.seconds() >= 0.2) {
                     stepCounter.next();
                 }
                 break;
+
+                // drive backwards to the line and hope that we don't hit our teammates.
+            case 6:
+                driveStraight(-0.3f);
+                if (elapsedTime.seconds() >= 0.3) {
+                    stopMoving();
+//                    stepCounter.next();
+                }
+                break;
+
         }
     }
 }

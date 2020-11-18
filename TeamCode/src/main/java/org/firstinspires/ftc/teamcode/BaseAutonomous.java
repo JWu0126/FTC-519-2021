@@ -1,11 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.util.ElapsedTime;
-
 public abstract class BaseAutonomous extends BaseOpMode{
 
     protected StepCounter stepCounter;
-    protected ElapsedTime elapsedTime;
 
     @Override
     public void init() {
@@ -57,5 +54,12 @@ public abstract class BaseAutonomous extends BaseOpMode{
         frontRight.setPower(0.5);
         backLeft.setPower(-0.5);
         backRight.setPower(0.5);
+    }
+
+    public void stopMoving() {
+        frontLeft.setPower(0.0);
+        frontRight.setPower(0.0);
+        backLeft.setPower(0.0);
+        backRight.setPower(0.0);
     }
 }

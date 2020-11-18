@@ -6,16 +6,18 @@ import org.firstinspires.ftc.teamcode.BaseAutonomous;
 import org.firstinspires.ftc.teamcode.StepCounter;
 
 // Built under the assumption that we are starting facing the line
+// If not then we just add a negative.
 
-@Autonomous(name = "Simply Park", group = "Not Main")
+@Autonomous(name = "Simply Park on the line", group = "Not Main")
 public class SimplyPark extends BaseAutonomous {
 
     int step;
+    ElapsedTime elapsedTime;
     @Override
     public void init() {
 
         super.init();
-        elapsedTime = new ElapsedTime();
+        elapsedTime = stepCounter.elapsedTime;
         stepCounter = new StepCounter();
     }
 
@@ -29,6 +31,7 @@ public class SimplyPark extends BaseAutonomous {
 
     @Override
     public void loop() {
+        elapsedTime = stepCounter.elapsedTime;
         step = stepCounter.getStep();
         switch(step) {
             case 1:

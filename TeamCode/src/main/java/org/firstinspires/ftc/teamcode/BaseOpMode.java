@@ -22,8 +22,8 @@ public abstract class BaseOpMode extends OpMode{
     // Uncomment if used
 //    DcMotor feeder;
 
-    protected final static double wobbleHandOpen = 0.5;
-    protected final static double wobbleHandClosed = 0.5;
+    protected final double wobbleHandOpen = 0.5;
+    protected final double wobbleHandClosed = 0.5;
 
     @Override
     public void init() {

@@ -40,6 +40,49 @@ public class TeleOpSkeleton extends BaseTeleOp {
             y = -y;
         }
 
+        // hopefully this works the way I think it will
+        if (someControl) {
+            elapsedTime.startTime();
+            if (elapsedTime.seconds() >= 0.1) {
+                slowMode = !slowMode;
+            }
+        }
+
+        if (slowMode) {
+            x /= 10;
+            y /= 10;
+            x /= 10;
+        }
+
         driveMotors(x, y, z);
+
+        if (someControl) {
+            wobbleGoalHand.setPosition(wobbleHandClosed);
+        } else if (someControl) {
+            wobbleGoalHand.setPosition(wobbleHandOpen);
+        }
+
+        // edit the power to be better for all of these
+        if (someControl) {
+            wobbleGoalArm.setPower(0.2);
+        }
+
+        if (someControl) {
+            wobbleGoalArm.setPower(-0.2);
+        }
+
+        if (someControl) {
+            shooter.setPower(1.0);
+        }
+
+        if (someControl) {
+            intake.setPower(0.4);
+        }
+
+        if (someControl) {
+            intake.setPower(-0.4);
+        }
+
+
     }
 }
