@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.BaseAutonomous;
 import org.firstinspires.ftc.teamcode.StepCounter;
 
-@Autonomous(name = "LeftRedFarWobbleGoal", group = "Not Main")
-public class LeftRedStartingLineWobbleToFarGoal extends BaseAutonomous {
+@Autonomous(name = "LeftRedMedWobbleGoal", group = "Not Main")
+public class LeftRedStartingLineWobbleToMedGoal extends BaseAutonomous {
 
     int step;
     ElapsedTime elapsedTime = stepCounter.elapsedTime;
@@ -18,7 +18,6 @@ public class LeftRedStartingLineWobbleToFarGoal extends BaseAutonomous {
 
     @Override
     public void start() {
-
         stepCounter.setStep(1);
         super.start();
     }
@@ -35,15 +34,15 @@ public class LeftRedStartingLineWobbleToFarGoal extends BaseAutonomous {
                 }
                 break;
 
-                // drive straight for 3 seconds
+            // drive straight for 3 seconds
             case 2:
                 driveStraight(0.5f);
-                if (elapsedTime.seconds() > 3.0) {
+                if (elapsedTime.seconds() > 2.5) {
                     stepCounter.next();
                 }
                 break;
 
-                // Maybe I should add a short break in between each movement...
+            // Maybe I should add a short break in between each movement...
             case 3:
                 stopMoving();
                 if (elapsedTime.seconds() > 0.1) {
@@ -54,13 +53,13 @@ public class LeftRedStartingLineWobbleToFarGoal extends BaseAutonomous {
             // strafe right for 2 seconds
             case 4:
                 strafeRight();
-                if (elapsedTime.seconds() > 2.0) {
+                if (elapsedTime.seconds() > 1.5) {
                     stepCounter.next();
                 }
                 break;
 
-                // open the wobble goal hand
-                // I chose not to lower it or anything, though it might be more stable
+            // open the wobble goal hand
+            // I chose not to lower it or anything, though it might be more stable
             case 5:
                 wobbleGoalHand.setPosition(wobbleHandOpen);
                 if (elapsedTime.seconds() >= 0.2) {
@@ -68,10 +67,10 @@ public class LeftRedStartingLineWobbleToFarGoal extends BaseAutonomous {
                 }
                 break;
 
-                // drive backwards to the line and hope that we don't hit our teammates.
+            // drive backwards to the line and hope that we don't hit our teammates.
             case 6:
                 driveStraight(-0.3f);
-                if (elapsedTime.seconds() >= 0.3) {
+                if (elapsedTime.seconds() >= 0.2) {
                     stopMoving();
 //                    stepCounter.next();
                 }

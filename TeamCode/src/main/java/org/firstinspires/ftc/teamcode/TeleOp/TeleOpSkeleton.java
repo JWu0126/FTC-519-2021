@@ -8,7 +8,10 @@ import org.firstinspires.ftc.teamcode.BaseTeleOp;
 @TeleOp(name = "Don't use this one", group = "Not Main")
 public class TeleOpSkeleton extends BaseTeleOp {
 
-    ElapsedTime elapsedTime;
+    private ElapsedTime elapsedTime;
+    private boolean buttonPressed = false;
+    private boolean buttonJustReleased = false;
+    private boolean handOpen = true;
 
     @Override
     public void init() {
@@ -56,23 +59,44 @@ public class TeleOpSkeleton extends BaseTeleOp {
 
         driveMotors(x, y, z);
 
-        if (someControl) {
-            wobbleGoalHand.setPosition(wobbleHandClosed);
-        } else if (someControl) {
-            wobbleGoalHand.setPosition(wobbleHandOpen);
+        // if it was released previously, then check if its pressed NOW
+        if (buttonJustReleased) {
+            if (someControl) {
+                buttonPressed = true;
+            }
+        }
+
+        // if it was pressed now then see if its not anymore, if its not then change positions.
+        // I think this works.
+        // Basically works on release of the button
+        if (buttonPressed) {
+            if (!someControl) {
+                buttonJustReleased = true;
+
+                // just to switch between the two states
+                if (handOpen) {
+                    wobbleGoalHand.setPosition(wobbleHandClosed);
+                } else {
+                    wobbleGoalHand.setPosition(wobbleHandOpen);
+                }
+            }
         }
 
         // edit the power to be better for all of these
         if (someControl) {
-            wobbleGoalArm.setPower(0.2);
+            setWobbleGoalArmUp();
+        } else if (someControl) {
+            setWobbleGoalArmDown();
+        } else {
+            wobbleGoalArm.setPower(0.0);
         }
 
         if (someControl) {
-            wobbleGoalArm.setPower(-0.2);
+            runShooter(1.0);
         }
 
         if (someControl) {
-            shooter.setPower(1.0);
+            runShooter(-1.0);
         }
 
         if (someControl) {

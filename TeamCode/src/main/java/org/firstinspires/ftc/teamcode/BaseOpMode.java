@@ -17,10 +17,15 @@ public abstract class BaseOpMode extends OpMode{
     protected Servo wobbleGoalHand;
 
     protected DcMotor intake;
-    protected DcMotor shooter;
+    protected DcMotor shooterLeft;
+    protected DcMotor shooterRight;
 
     // Uncomment if used
 //    DcMotor feeder;
+
+    protected final int armDown = 1000;
+    protected final int armUp = 0;
+    protected final int acceptableRange = 30;
 
     protected final double wobbleHandOpen = 0.5;
     protected final double wobbleHandClosed = 0.5;
@@ -49,13 +54,17 @@ public abstract class BaseOpMode extends OpMode{
 
         wobbleGoalArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         wobbleGoalArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        wobbleGoalArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
 
         // find the ring manipulator motors in app
         intake = hardwareMap.dcMotor.get("intake");
-        shooter = hardwareMap.dcMotor.get("shooter");
+        shooterLeft = hardwareMap.dcMotor.get("shooter_left");
+        shooterRight = hardwareMap.dcMotor.get("shooter_right");
 
         // set shooter and intake to "float" at zero to maintain rotation
-        shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        shooterLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        shooterRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
     }
 
@@ -63,5 +72,44 @@ public abstract class BaseOpMode extends OpMode{
     public void start() {
         // what does this actually do?
         super.start();
+    }
+
+    protected void runShooter(double power) {
+        shooterLeft.setPower(-power);
+        shooterRight.setPower(power);
+    }
+
+    protected void setWobbleGoalArmDown() {
+        boolean closeEnough = false;
+
+        while (!closeEnough) {
+            if (wobbleGoalArm.getCurrentPosition() > armDown) {
+                wobbleGoalArm.setPower(0.02);
+            } else if (wobbleGoalArm.getCurrentPosition() < armDown) {
+                wobbleGoalArm.setPower(-0.02);
+            }
+
+            if (wobbleGoalArm.getCurrentPosition() < armDown - acceptableRange && wobbleGoalArm.getCurrentPosition() > armDown + acceptableRange) {
+                closeEnough = true;
+            }
+
+        }
+    }
+
+    protected void setWobbleGoalArmUp() {
+        boolean closeEnough = false;
+
+        while (!closeEnough) {
+            if (wobbleGoalArm.getCurrentPosition() > armUp) {
+                wobbleGoalArm.setPower(0.02);
+            } else if (wobbleGoalArm.getCurrentPosition() < armUp) {
+                wobbleGoalArm.setPower(-0.02);
+            }
+
+            if (wobbleGoalArm.getCurrentPosition() < armUp - acceptableRange && wobbleGoalArm.getCurrentPosition() > armUp + acceptableRange) {
+                closeEnough = true;
+            }
+
+        }
     }
 }
