@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 public abstract class BaseAutonomous extends BaseOpMode{
 
     protected StepCounter stepCounter;
+    protected double totalTimeBackwardsToLine = 1.5;
 
     @Override
     public void init() {

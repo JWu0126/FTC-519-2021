@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.BaseTeleOp;
 // CHANGE NAMES LATER!!!
 @TeleOp(name = "Don't use this one", group = "Not Main")
 public class TeleOpSkeleton extends BaseTeleOp {
+    // presumably going to need multiple versions of teleop because two days comp
 
     private ElapsedTime elapsedTime;
     private boolean buttonPressed = false;
@@ -82,7 +83,10 @@ public class TeleOpSkeleton extends BaseTeleOp {
             }
         }
 
+/***    -----------------------------------------------------------------------------------------------------------     */
+
         // edit the power to be better for all of these
+        // Figure out how these controls are being used (ie. toggle, hold, whatever)
         if (someControl) {
             setWobbleGoalArmUp();
         } else if (someControl) {

@@ -5,12 +5,13 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.BaseAutonomous;
 import org.firstinspires.ftc.teamcode.StepCounter;
 
-@Autonomous(name = "LeftRedMedWobbleGoal", group = "Not Main")
-public class LeftRedStartingLineWobbleToMedGoal extends BaseAutonomous {
+@Autonomous(name = "LeftRedShortWobbleGoal", group = "Not Main")
+public class LeftRedStartingWobbleToShortGoal extends BaseAutonomous {
+
+    ElapsedTime elapsedTime = stepCounter.elapsedTime;
 
     int step;
-    ElapsedTime elapsedTime = stepCounter.elapsedTime;
-    double driveForwardTime = 2.5;
+    double driveForwardTime = 2.0;
     double strafeRightTime = 2.0;
 
     @Override
@@ -21,7 +22,6 @@ public class LeftRedStartingLineWobbleToMedGoal extends BaseAutonomous {
 
     @Override
     public void start() {
-        stepCounter.setStep(1);
         super.start();
     }
 
@@ -54,8 +54,8 @@ public class LeftRedStartingLineWobbleToMedGoal extends BaseAutonomous {
                 }
                 break;
 
-            // strafe right for 1.5 seconds
-            // change to work (Should be shorter than far or short wobble goal)
+            // strafe right for 2 seconds
+            // change to work
             case 4:
                 strafeRight();
                 if (elapsedTime.seconds() > strafeRightTime) {
@@ -64,7 +64,7 @@ public class LeftRedStartingLineWobbleToMedGoal extends BaseAutonomous {
                 break;
 
             // open the wobble goal hand
-            // I chose not to lower it or anything, though it might be more stable to do so
+            // I chose not to lower it or anything, though it might be more stable
             case 5:
                 wobbleGoalHand.setPosition(wobbleHandOpen);
                 if (elapsedTime.seconds() >= 0.2) {
