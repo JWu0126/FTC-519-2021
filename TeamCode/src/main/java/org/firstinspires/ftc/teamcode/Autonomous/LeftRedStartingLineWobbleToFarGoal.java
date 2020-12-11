@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.BaseAutonomous;
 import org.firstinspires.ftc.teamcode.StepCounter;
 
-@Autonomous(name = "LeftRedFarWobbleGoal", group = "Not Main")
 public class LeftRedStartingLineWobbleToFarGoal extends BaseAutonomous {
 
     int step;
