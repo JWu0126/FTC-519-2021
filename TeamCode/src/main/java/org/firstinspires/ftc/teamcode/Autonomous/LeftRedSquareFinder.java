@@ -9,18 +9,17 @@ import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
-import org.firstinspires.ftc.robotcore.internal.vuforia.VuforiaLocalizerImpl;
 
-import org.firstinspires.ftc.teamcode.BaseAutonomous;
+import org.firstinspires.ftc.teamcode.BaseOpMode;
 
 
 // I'll leave it abstract for now
-public abstract class LeftRedSquareFinder extends BaseAutonomous {
+public abstract class LeftRedSquareFinder extends BaseOpMode {
 
     Telemetry telemetry;
 
     static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
-    static final boolean PHONE_IS_PORTRAIT = false  ;
+    static final boolean PHONE_IS_PORTRAIT = false;
 
     static final String VUFORIA_KEY =
             " --- YOUR NEW VUFORIA KEY GOES HERE  --- ";
@@ -103,25 +102,6 @@ public abstract class LeftRedSquareFinder extends BaseAutonomous {
         } else {
             telemetry.addLine("Went to else statement. Assuming it's Close");
             return location.CLOSE;
-        }
-    }
-
-    protected void runAuto() {
-        location field = findSquare();
-
-        switch (field) {
-            case FAR:
-
-                break;
-
-            case MED:
-
-                break;
-
-            case CLOSE:
-
-                break;
-
         }
     }
 
