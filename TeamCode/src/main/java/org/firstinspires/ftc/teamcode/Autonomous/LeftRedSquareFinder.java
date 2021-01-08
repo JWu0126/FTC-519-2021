@@ -11,6 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
 import org.firstinspires.ftc.teamcode.BaseOpMode;
+import org.firstinspires.ftc.teamcode.Vuforia;
 
 
 // I'll leave it abstract for now
@@ -24,36 +25,22 @@ public abstract class LeftRedSquareFinder extends BaseOpMode {
     static final String VUFORIA_KEY =
             " --- YOUR NEW VUFORIA KEY GOES HERE  --- ";
 
-    VuforiaLocalizer vuforia = null;
-    VuforiaLocalizer.CloseableFrame frame = null;
-
+    Vuforia vuforia;
     Image rawImage;
     Bitmap image;
 
     protected void initialize() {
         telemetry.addLine("Initializing Vuforia things");
 
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-
-        parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        parameters.cameraDirection   = CAMERA_CHOICE;
-
-        // creates vuforia object
-        vuforia = ClassFactory.getInstance().createVuforia(parameters);
-
-
-        com.vuforia.Vuforia.setFrameFormat(PIXEL_FORMAT.RGB565, true);
-
-        vuforia.setFrameQueueCapacity(1);
+        vuforia = new Vuforia(hardwareMap);
 
         try {
-            frame = vuforia.getFrameQueue().take();
+            vuforia.frame = vuforia.vuforia.getFrameQueue().take();
         } catch (InterruptedException e) {
             telemetry.addLine("Couldn't take picture");
         }
 
-        rawImage = frame.getImage(0);
+        rawImage = vuforia.frame.getImage(0);
 
         image = Bitmap.createBitmap(rawImage.getWidth(), rawImage.getHeight(), Bitmap.Config.RGB_565);
     }
